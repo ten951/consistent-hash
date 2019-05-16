@@ -1,6 +1,10 @@
 package com.ten951.consistent;
 
 import com.google.common.util.concurrent.AtomicLongMap;
+import com.ten951.consistent.balancer.ConsistentHashLoadBalancer;
+import com.ten951.consistent.balancer.LoadBalancer;
+import com.ten951.consistent.balancer.WeightPollingLoadBalancer;
+import com.ten951.consistent.strategy.MurmurHashStrategy;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -21,7 +25,7 @@ public class LoadBalanceTest {
         for (String ip : ips) {
             servers.add(new Server(ip + ":8080"));
         }
-        LoadBalancer chloadBalance = new ConsistentHashLoadBalancer();
+        LoadBalancer<Server> chloadBalance = new ConsistentHashLoadBalancer(new MurmurHashStrategy());
         // 构造 10000 随机请求
         List<Invocation> invocations = new ArrayList<>();
         for (int i = 0; i < 10000; i++) {
@@ -40,6 +44,22 @@ public class LoadBalanceTest {
         System.out.println(StatisticsUtil.standardDeviation(atomicLongMap.asMap().values().toArray(new Long[]{})));
     }
 
+    @Test
+    public void testWeightPolling() {
+        List<WeightServer> servers = new ArrayList<>();
+        servers.add(new WeightServer(ips[0] + ":8080", 10));
+        servers.add(new WeightServer(ips[1] + ":8080", 2));
+        servers.add(new WeightServer(ips[2] + ":8080", 5));
+        servers.add(new WeightServer(ips[3] + ":8080", 8));
+        LoadBalancer<WeightServer> weightPollingLoadBalancer = new WeightPollingLoadBalancer();
+        for (int i = 0; i < 10000; i++) {
+            final WeightServer select = weightPollingLoadBalancer.select(servers, null);
+            System.out.println("select = " + select.toString());
+
+        }
+
+    }
+
     /**
      * 测试节点新增删除后的变化程度
      */
@@ -50,7 +70,7 @@ public class LoadBalanceTest {
             servers.add(new Server(ip));
         }
         List<Server> serverChanged = servers.subList(0, 80);
-        LoadBalancer chloadBalance = new ConsistentHashLoadBalancer();
+        LoadBalancer<Server> chloadBalance = new ConsistentHashLoadBalancer(new MurmurHashStrategy());
         // 构造 10000 随机请求
         List<Invocation> invocations = new ArrayList<>();
         for (int i = 0; i < 10000; i++) {

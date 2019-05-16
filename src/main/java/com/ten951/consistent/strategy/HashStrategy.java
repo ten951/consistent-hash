@@ -1,4 +1,4 @@
-package com.ten951.consistent;
+package com.ten951.consistent.strategy;
 
 /**
  * 哈希策略

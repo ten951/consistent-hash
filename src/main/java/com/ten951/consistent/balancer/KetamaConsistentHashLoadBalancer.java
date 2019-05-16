@@ -1,4 +1,8 @@
-package com.ten951.consistent;
+package com.ten951.consistent.balancer;
+
+import com.ten951.consistent.Invocation;
+import com.ten951.consistent.Server;
+import com.ten951.consistent.balancer.LoadBalancer;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -10,7 +14,7 @@ import java.util.TreeMap;
  * @author Darcy
  * Created By Darcy on 2019-05-08 15:11
  */
-public class KetamaConsistentHashLoadBalancer implements LoadBalancer {
+public class KetamaConsistentHashLoadBalancer implements LoadBalancer<Server> {
     private static MessageDigest md5Digest;
 
     static {

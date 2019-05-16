@@ -1,4 +1,6 @@
-package com.ten951.consistent;
+package com.ten951.consistent.strategy;
+
+import com.ten951.consistent.strategy.HashStrategy;
 
 /**
  * @author Darcy

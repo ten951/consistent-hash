@@ -1,4 +1,4 @@
-package com.ten951.consistent;
+package com.ten951.consistent.strategy;
 
 /**
  * FNV1_32_HASH 算法计算hashCode

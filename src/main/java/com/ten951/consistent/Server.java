@@ -1,11 +1,12 @@
 package com.ten951.consistent;
 
-import java.util.StringJoiner;
+import lombok.ToString;
 
 /**
  * @author Darcy
  * Created By Darcy on 2019-05-08 14:52
  */
+@ToString
 public class Server {
 
     private String url;
@@ -22,10 +23,5 @@ public class Server {
         this.url = url;
     }
 
-    @Override
-    public String toString() {
-        return new StringJoiner(", ", Server.class.getSimpleName() + "[", "]")
-                .add("url='" + url + "'")
-                .toString();
-    }
+
 }
