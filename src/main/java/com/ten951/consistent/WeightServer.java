@@ -10,17 +10,19 @@ import lombok.ToString;
  * @author Darcy
  * Created By Darcy on 2019-05-16 11:43
  */
-@EqualsAndHashCode(callSuper = true)
-@ToString(callSuper = true)
-public final class WeightServer extends Server {
+@EqualsAndHashCode
+@ToString
+public final class WeightServer {
 
+
+    private final String url;
     /**
      * 服务器权重
      */
     private final Integer weight;
 
     public WeightServer(String url, Integer weight) {
-        super(url);
+        this.url = url;
         this.weight = weight;
     }
 
@@ -29,5 +31,7 @@ public final class WeightServer extends Server {
         return weight;
     }
 
-
+    public String getUrl() {
+        return url;
+    }
 }

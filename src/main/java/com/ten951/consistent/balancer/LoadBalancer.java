@@ -1,7 +1,6 @@
 package com.ten951.consistent.balancer;
 
 import com.ten951.consistent.Invocation;
-import com.ten951.consistent.Server;
 
 import java.util.List;
 
@@ -11,7 +10,7 @@ import java.util.List;
  * @author Darcy
  * Created By Darcy on 2019-05-08 14:51
  */
-public interface LoadBalancer<T extends Server> {
+public interface LoadBalancer<T> {
 
     /**
      * 根据负载均衡算法选择最合适的一个Server

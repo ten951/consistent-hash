@@ -47,12 +47,11 @@ public class LoadBalanceTest {
     @Test
     public void testWeightPolling() {
         List<WeightServer> servers = new ArrayList<>();
-        servers.add(new WeightServer(ips[0] + ":8080", 10));
-        servers.add(new WeightServer(ips[1] + ":8080", 2));
-        servers.add(new WeightServer(ips[2] + ":8080", 5));
-        servers.add(new WeightServer(ips[3] + ":8080", 8));
+        servers.add(new WeightServer( "a", 5));
+        servers.add(new WeightServer("b", 1));
+        servers.add(new WeightServer("c", 1));
         LoadBalancer<WeightServer> weightPollingLoadBalancer = new WeightPollingLoadBalancer();
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 7; i++) {
             final WeightServer select = weightPollingLoadBalancer.select(servers, null);
             System.out.println("select = " + select.toString());
 
